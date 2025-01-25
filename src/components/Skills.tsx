@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Code, Smartphone, Layout, Server, Database, Wrench } from 'lucide-react';
