@@ -4,32 +4,32 @@ import { Github, Linkedin, Mail, Download } from 'lucide-react';
 
 const Hero = () => {
   const socialLinks = [
-    { 
-      href: "https://github.com/alok-112",
+    {
+      href: 'https://github.com/alok-112',
       icon: <Github />,
-      color: "hover:text-purple-400",
-      bg: "hover:bg-purple-600/20"
+      color: 'hover:text-purple-400',
+      bg: 'hover:bg-purple-600/20',
     },
-    { 
-      href: "https://linkedin.com/in/alok-thakur",
+    {
+      href: 'https://linkedin.com/in/alok-thakur',
       icon: <Linkedin />,
-      color: "hover:text-blue-400",
-      bg: "hover:bg-blue-600/20"
+      color: 'hover:text-blue-400',
+      bg: 'hover:bg-blue-600/20',
     },
-    { 
-      href: "mailto:work.alok.thakur@gmail.com",
+    {
+      href: 'mailto:work.alok.thakur@gmail.com',
       icon: <Mail />,
-      color: "hover:text-red-400",
-      bg: "hover:bg-red-600/20"
-    }
+      color: 'hover:text-red-400',
+      bg: 'hover:bg-red-600/20',
+    },
   ];
 
   const techStackColors = {
-    React: "from-blue-600 to-cyan-500",
-    TypeScript: "from-cyan-600 to-blue-500",
-    "Next.js": "from-purple-600 to-pink-500",
-    "Node.js": "from-green-600 to-emerald-500",
-    MongoDB: "from-red-600 to-orange-500"
+    React: 'from-blue-600 to-cyan-500',
+    TypeScript: 'from-cyan-600 to-blue-500',
+    'Next.js': 'from-purple-600 to-pink-500',
+    'Node.js': 'from-green-600 to-emerald-500',
+    MongoDB: 'from-red-600 to-orange-500',
   };
 
   return (
@@ -79,8 +79,8 @@ const Hero = () => {
             </motion.a>
 
             <motion.a
-              href="/resume.pdf"
-              download
+              href="Alok_Resume.pdf"
+              download="Alok_Resume.pdf"
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-3 px-7 py-3.5 border-2 border-purple-400/30 bg-gray-800/80 text-purple-200 rounded-full backdrop-blur-md hover:bg-gray-700 transition-colors"
@@ -92,7 +92,15 @@ const Hero = () => {
 
           {/* Colorful Tech Stack */}
           <div className="mt-12 mb-16 flex flex-wrap justify-center gap-4 opacity-90">
-            {(['React', 'TypeScript', 'Next.js', 'Node.js', 'MongoDB'] as (keyof typeof techStackColors)[]).map((tech, index) => (
+            {(
+              [
+                'React',
+                'TypeScript',
+                'Next.js',
+                'Node.js',
+                'MongoDB',
+              ] as (keyof typeof techStackColors)[]
+            ).map((tech, index) => (
               <motion.div
                 key={tech}
                 initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
@@ -101,7 +109,9 @@ const Hero = () => {
                 className={`px-5 py-2.5 bg-gradient-to-br ${techStackColors[tech]} rounded-full shadow-lg hover:shadow-xl transition-all cursor-default`}
                 whileHover={{ y: -3, scale: 1.05, rotate: 2 }}
               >
-                <span className="text-gray-100 text-base font-medium">{tech}</span>
+                <span className="text-gray-100 text-base font-medium">
+                  {tech}
+                </span>
               </motion.div>
             ))}
           </div>
@@ -124,7 +134,9 @@ const Hero = () => {
                 transition={{ type: 'spring', stiffness: 300 }}
                 className={`p-3 rounded-full transition-colors ${link.bg} ${link.color}`}
               >
-                {React.cloneElement(link.icon, { className: "w-7 h-7 text-gray-300 transition-colors" })}
+                {React.cloneElement(link.icon, {
+                  className: 'w-7 h-7 text-gray-300 transition-colors',
+                })}
               </motion.a>
             ))}
           </motion.div>
@@ -137,8 +149,12 @@ const Hero = () => {
             transition={{ delay: 0.8 }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
-            <h3 className="text-2xl font-semibold text-gray-200 mb-3">Latest Project</h3>
-            <p className="text-gray-400 mb-6 text-lg">Social Media Dashboard with Real-time Analytics</p>
+            <h3 className="text-2xl font-semibold text-gray-200 mb-3">
+              Latest Project
+            </h3>
+            <p className="text-gray-400 mb-6 text-lg">
+              Social Media Dashboard with Real-time Analytics
+            </p>
             <div className="mockup-window bg-gray-900 border border-white/10">
               <div className="flex justify-center bg-gray-800 p-6">
                 <img
