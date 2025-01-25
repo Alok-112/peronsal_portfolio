@@ -1,37 +1,55 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, ShoppingCart, LayoutDashboard, Palette } from 'lucide-react';
 
 const projects = [
   {
-    title: 'Expense Tracker App',
-    description: 'A React Native app for tracking daily expenses with features like adding, editing, and categorizing expenses.',
-    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
+    title: 'E-commerce Platform',
+    description: 'Modern online shopping experience with product filtering, cart management, and secure checkout',
+    image: 'https://images.unsplash.com/photo-1607082352121-fa243f3dde32?auto=format&fit=crop&q=80&w=800',
     github: '#',
     demo: '#',
-    tags: ['React Native', 'Expo', 'AsyncStorage'],
-    color: 'from-purple-500 to-pink-500'
+    tags: ['React', 'Redux', 'Tailwind', 'Stripe'],
+    color: 'from-blue-600 to-cyan-500',
+    icon: <ShoppingCart className="w-6 h-6 text-white" />
   },
   {
-    title: 'Weather App',
-    description: 'Built using React Native and OpenWeather API, displays current weather conditions and forecasts.',
-    image: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?auto=format&fit=crop&q=80&w=800',
+    title: 'Dashboard Analytics',
+    description: 'Interactive data visualization dashboard with real-time metrics and reporting features',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
     github: '#',
     demo: '#',
-    tags: ['React Native', 'API Integration', 'Geolocation'],
-    color: 'from-cyan-500 to-blue-500'
+    tags: ['Next.js', 'TypeScript', 'Chart.js', 'AWS'],
+    color: 'from-purple-600 to-pink-500',
+    icon: <LayoutDashboard className="w-6 h-6 text-white" />
   },
   {
-    title: 'Task Manager',
-    description: 'A task management app with features like to-do lists, reminders, and progress tracking.',
-    image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=800',
+    title: 'Portfolio Builder',
+    description: 'Responsive portfolio generator with theme customization and CMS integration',
+    image: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&q=80&w=800',
     github: '#',
     demo: '#',
-    tags: ['React Native', 'Redux', 'Notifications'],
-    color: 'from-emerald-500 to-teal-500'
+    tags: ['React', 'Framer Motion', 'Sanity.io', 'SCSS'],
+    color: 'from-red-500 to-orange-400',
+    icon: <Palette className="w-6 h-6 text-white" />
   }
 ];
+
+// Color mapping for tags
+const tagColors: { [key: string]: string } = {
+  'React': 'from-blue-600 to-cyan-500',
+  'Redux': 'from-purple-600 to-pink-500',
+  'Tailwind': 'from-cyan-500 to-blue-500',
+  'Stripe': 'from-violet-600 to-indigo-500',
+  'Next.js': 'from-gray-800 to-gray-600',
+  'TypeScript': 'from-blue-600 to-cyan-600',
+  'Chart.js': 'from-yellow-600 to-amber-500',
+  'AWS': 'from-orange-500 to-red-500',
+  'Framer Motion': 'from-pink-500 to-purple-500',
+  'Sanity.io': 'from-red-500 to-orange-400',
+  'SCSS': 'from-pink-500 to-rose-400'
+};
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -40,81 +58,115 @@ const Projects = () => {
   });
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50" id="projects">
+    <section className="relative py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800" id="projects">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-          Featured Projects
-        </h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+        >
+          Featured Creations
+        </motion.h2>
         
         <motion.div
           ref={ref}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: { opacity: 1, y: 0 }
+              }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.2 }
+                y: -10,
+                transition: { type: "spring", stiffness: 300 }
               }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden transform-gpu"
+              className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transform-gpu border border-gray-200 dark:border-gray-700"
             >
-              <div className="relative h-48 overflow-hidden group">
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-0 group-hover:opacity-40 transition-opacity duration-300`}
-                />
+              {/* Image Container */}
+              <div className="relative h-60 overflow-hidden">
+                <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-0 group-hover:opacity-30 transition-opacity duration-300 z-10`} />
                 <motion.img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  whileHover={{ scale: 1.1 }}
                 />
+                <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                  <div className={`p-2 rounded-lg backdrop-blur-sm bg-gradient-to-br ${project.color}`}>
+                    {project.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-white drop-shadow-lg">{project.title}</h3>
+                </div>
               </div>
               
+              {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
                 
-                <div className="flex flex-wrap gap-2 mb-4">
+                {/* Colorful Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag, tagIndex) => (
                     <motion.span
                       key={tagIndex}
-                      whileHover={{ scale: 1.1 }}
-                      className={`bg-gradient-to-r ${project.color} text-white text-xs px-3 py-1 rounded-full`}
+                      whileHover={{ y: -2, scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${
+                        tagColors[tag] || 'from-gray-600 to-gray-400'
+                      } text-white shadow-sm hover:shadow-md transition-all`}
                     >
                       {tag}
                     </motion.span>
                   ))}
                 </div>
                 
-                <div className="flex gap-4">
+                {/* Links */}
+                <div className="flex gap-4 border-t border-gray-200 dark:border-gray-700 pt-4">
                   <motion.a
                     href={project.github}
-                    whileHover={{ scale: 1.2, rotate: 10 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`text-gray-600 hover:text-transparent bg-clip-text hover:bg-gradient-to-r ${project.color}`}
+                    whileHover={{ x: 5 }}
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-purple-400 transition-colors"
                   >
-                    <Github size={24} />
+                    <Github size={20} />
+                    <span className="font-medium">Source Code</span>
                   </motion.a>
                   <motion.a
                     href={project.demo}
-                    whileHover={{ scale: 1.2, rotate: -10 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`text-gray-600 hover:text-transparent bg-clip-text hover:bg-gradient-to-r ${project.color}`}
+                    whileHover={{ x: 5 }}
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-purple-400 transition-colors"
                   >
-                    <ExternalLink size={24} />
+                    <ExternalLink size={20} />
+                    <span className="font-medium">Live Demo</span>
                   </motion.a>
                 </div>
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
+            Want to see more? Check out my complete portfolio on
+          </p>
+          <motion.a
+            href="https://github.com/alok-112"
+            whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg transition-all"
+          >
+            <Github size={20} />
+            <span>GitHub</span>
+          </motion.a>
         </motion.div>
       </div>
     </section>
